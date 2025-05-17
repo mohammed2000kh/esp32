@@ -7,17 +7,13 @@ from google.auth.transport.requests import Request
 
 app = Flask(__name__)
 
-<<<<<<< HEAD
 # 👇 لازم يكون قبل الاستخدام
 SCOPES = ['https://www.googleapis.com/auth/firebase.messaging']
 
 # 👇 تحميل بيانات الخدمة من متغير البيئة
-=======
 # ✅ أولاً: عرف SCOPES
-SCOPES = ['https://www.googleapis.com/auth/firebase.messaging']
 
 # ✅ ثم: حمّل بيانات الحساب من متغير البيئة
->>>>>>> 9fb0c59686efe46d8f69e6fd7af93fd8ea56637b
 SERVICE_ACCOUNT_INFO = json.loads(os.environ['SERVICE_ACCOUNT_JSON'])
 credentials = service_account.Credentials.from_service_account_info(
     SERVICE_ACCOUNT_INFO, scopes=SCOPES
