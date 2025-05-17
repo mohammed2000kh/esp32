@@ -23,6 +23,9 @@ credentials = service_account.Credentials.from_service_account_info(
 def get_access_token():
     credentials.refresh(Request())
     return credentials.token
+@app.route('/')
+def index():
+    return 'FCM Server is running ✅'
 
 @app.route('/notify', methods=['POST'])
 def send_notification():
