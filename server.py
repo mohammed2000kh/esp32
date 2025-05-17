@@ -60,6 +60,3 @@ def send_notification():
     )
 
     return jsonify({"status": response.status_code, "response": response.text})
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
