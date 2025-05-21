@@ -45,9 +45,10 @@ def send_notification():
             },
             "data": data.get("data", {}),
             "android": {
+                "priority": "high",
                 "notification": {
                     "click_action": "FLUTTER_NOTIFICATION_CLICK",
-                    "channel_id": "high_importance_channel"
+                    "channel_id": "alarm_channel"
                 }
             }
         }
