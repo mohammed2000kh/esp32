@@ -65,6 +65,7 @@ def send_standard_notification():
     return jsonify({"status": response.status_code, "response": response.text})
 
 # إشعارات Data-only لتفعيل MyFirebaseMessagingService وفتح AlarmActivity
+
 @app.route('/notify-alarm', methods=['POST'])
 def send_alarm_notification():
     data = request.get_json()
@@ -73,7 +74,7 @@ def send_alarm_notification():
     body = data.get('body', 'تم رصد حركة')
     extra_data = data.get("data", {})
 
-    # نضيف title و body داخل data (وليس notification!)
+    # payload للبيانات الإضافية
     data_payload = {
         "type": "alarm",
         "title": title,
@@ -86,19 +87,21 @@ def send_alarm_notification():
     message = {
         "message": {
             "token": token,
+            "notification": {
+                "title": title,
+                "body": body,
+            },
             "data": data_payload,
             "android": {
-    "priority": "high",
-    "notification": {
-        "click_action": "ALARM_ACTION",
-        "channel_id": "alarm_channel",
-        "full_screen_intent": True,
-        "priority": "PRIORITY_MAX",
-        "visibility": "PUBLIC",
-        "sound": "alarm"
-    }
-}
-
+                "priority": "HIGH",
+                "notification": {
+                    "click_action": "ALARM_ACTION",
+                    "channel_id": "alarm_channel",
+                    "visibility": "PUBLIC",
+                    "sound": "alarm",
+                    "notificationPriority": "PRIORITY_MAX"  # ✅ الصيغة الصحيحة لـ FCM v1
+                }
+            }
         }
     }
 
@@ -111,7 +114,11 @@ def send_alarm_notification():
         data=json.dumps(message)
     )
 
-    return jsonify({"status": response.status_code, "response": response.text})
+    return jsonify({
+        "status": response.status_code,
+        "response": response.text,
+        "sent_data": message
+    })
 
 
 if __name__ == '__main__':
