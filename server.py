@@ -88,12 +88,17 @@ def send_alarm_notification():
             "token": token,
             "data": data_payload,
             "android": {
-                "priority": "high",
-                "notification": {
-                    "click_action": "FLUTTER_NOTIFICATION_CLICK",
-                    "channel_id": "alarm_channel"
-                }
-            }
+    "priority": "high",
+    "notification": {
+        "click_action": "ALARM_ACTION",
+        "channel_id": "alarm_channel",
+        "full_screen_intent": True,
+        "priority": "PRIORITY_MAX",
+        "visibility": "PUBLIC",
+        "sound": "alarm"
+    }
+}
+
         }
     }
 
